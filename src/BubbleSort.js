@@ -133,7 +133,19 @@ class BubbleSort extends Component {
         this.setState({ array: array, i: i, j: j, swapped: swapped, sorted: sorted })
     }
 
-    randomArray() {
+    randomizeArray() {
+        let arraySize = document.querySelector('#randomArraySize').value;
+        if (arraySize) {
+            this.createRandomArray(arraySize);
+        } else {
+            document.querySelector('#nullArraySize').classList.remove('hidden');
+            setTimeout(() => {
+                document.querySelector('#nullArraySize').classList.add('hidden');
+            }, 3000)
+        }
+    }
+
+    createRandomArray(size) {
         document.querySelector('#sortBtn').disabled = false;
         document.querySelector('#nextBtn').disabled = false;
         let array = [];
@@ -141,8 +153,8 @@ class BubbleSort extends Component {
         let i = 0;
         let j = 0;
 
-        for (let i = 0; i < 100; i++) {
-            let item = Math.ceil(Math.random() * 100);
+        for (let i = 0; i < size; i++) {
+            let item = Math.ceil(Math.random() * size);
             array.push(item);
             colors.push('lightblue')
         }
@@ -156,7 +168,7 @@ class BubbleSort extends Component {
     }
 
     componentDidMount() {
-        this.randomArray();
+        this.createRandomArray(50);
         document.querySelector('#nextBtn').style.cssText = `margin-left:${(((1000 - this.state.array.length * 45) / 2) - 20 + this.state.array.length * 45 / 2)}px ;margin-right:10px`;
     }
 
@@ -188,25 +200,26 @@ class BubbleSort extends Component {
                     <div className='row'>
                         <button id='nextBtn' onClick={this.next.bind(this)} className='btn btn-small btn-info' style={{ marginLeft: `${(((1200 - this.state.array.length * 45) / 2) - 20 + this.state.array.length * 45 / 2)}px`, marginRight: '10px' }}><i className='fa fa-angle-right'></i></button>
                         <input onChange={this.selectRange.bind(this)} className='ml-5' type="range" min={1} max={1000} id="speedRange" />
+                        <button id='stopBtn' onClick={this.stopSorting.bind(this)} className='btn ml-3 btn-danger hidden'>Stop</button>
                     </div>
                     <div className="row mt-5">
-                        <div className='col-12 font-weight-bold mb-3'>Enter comma separated Number :</div>
-
-                        <input className='form-control' type="text" id="arrayInput" style={{ width: '40%' }} />
+                        <input className='form-control' type="text" placeholder='Enter Comma Separated Integers...' id="arrayInput" style={{ width: '40%' }} />
                         <button id='createBtn' onClick={this.createArray.bind(this)} className='btn ml-3 btn-success'>
                             Create
                         </button>
-                        <button id='randomBtn' onClick={this.randomArray.bind(this)} className='btn ml-3 btn-secondary'>
+                        <input className='form-control ml-3' type="number" placeholder='Enter Array Size' id="randomArraySize" style={{ width: '20%' }} />
+                        <button id='randomBtn' onClick={this.randomizeArray.bind(this)} className='btn ml-3 btn-secondary'>
                             Randomize Array
                         </button>
                         <button id='sortBtn' onClick={() => { this.sortArray(1000) }} className='btn ml-3 btn-primary'>Start Sorting</button>
-                        <button id='stopBtn' onClick={this.stopSorting.bind(this)} className='btn ml-3 btn-danger hidden'>Stop</button>
-
                         <div id='below50' className="col-12 text-danger mt-3 font-weight-bold hidden">
-                            Enter number below 50
+                            <i className='fas fa-praying-hands mr-2' style={{ fontSize: '48px', color: 'red' }}></i>Enter number below 50
                         </div>
                         <div id='null' className="col-12 text-danger mt-3 font-weight-bold hidden">
-                            Enter Some Number to create an Array
+                            <i className='fas fa-praying-hands mr-2' style={{ fontSize: '48px', color: 'red' }}></i>Enter Some Number to create an Array
+                        </div>
+                        <div id='nullArraySize' className="col-12 text-danger mt-3 font-weight-bold hidden">
+                            <i className='fas fa-praying-hands mr-2' style={{ fontSize: '48px', color: 'red' }}></i>Enter Array Size to create an Randomize Array
                         </div>
                     </div>
                 </div>
