@@ -5,9 +5,9 @@ class Svg extends Component {
         return (
             <>
                 <g transform={`translate(${this.props.translateX},${this.props.translateY})`}>
-                    <rect height={this.props.height} width='45' style={{ fill: this.props.color }}>
+                    <rect height={this.props.height} width={this.props.width} style={{ fill: this.props.color }}>
                     </rect>
-                    <text dy='.35em' x='22.5' y={this.props.texty}>
+                    <text style={{ fontSize: `${this.props.fontSize}` }} dy='.35em' x={this.props.width / 2} y={this.props.texty}>
                         {this.props.number}
                     </text>
                 </g>

@@ -48,7 +48,7 @@ a:hover {
 
 text {
   fill: black;
-  font: 20px sans-serif;
+  font-family: sans-serif;
   text-anchor: middle;
 }
 
@@ -66,4 +66,8 @@ text {
 .hidden {
   display: none;
   color: rgb(173, 216, 230);
+}
+
+g {
+  transition: transform 0.5s ease-in-out;
 }
